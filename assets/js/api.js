@@ -1,6 +1,3 @@
-/* ARQUIVO: assets/js/api.js 
-   Solução: Links diretos para evitar caracteres invisíveis
-*/
 
 export async function getAllCountries() {
     try {
@@ -9,7 +6,7 @@ export async function getAllCountries() {
         if (!response.ok) throw new Error('Erro ao carregar países');
         return await response.json();
     } catch (error) {
-        console.error('Erro:', error);
+        console.error('Erro em getAllCountries:', error);
         throw error;
     }
 }
@@ -22,9 +19,8 @@ export async function getCountriesByRegion(region) {
         } else {
             url = `https://restcountries.com/v3.1/region/${region}`;
         }
-
-        const response = await fetch(url);
         
+        const response = await fetch(url);
         if (!response.ok) throw new Error('Erro ao filtrar região');
         return await response.json();
     } catch (error) {
@@ -36,7 +32,6 @@ export async function getCountriesByRegion(region) {
 export async function getCountryByName(name) {
     if (!name) return null;
     try {
-        // Link direto para busca por nome
         const response = await fetch(`https://restcountries.com/v3.1/name/${name}?fullText=true`);
         if (!response.ok) throw new Error('País não encontrado');
         const data = await response.json();
