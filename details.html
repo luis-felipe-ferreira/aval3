@@ -12,7 +12,12 @@
     <header>
         <div class="container">
             <h1>World Explorer</h1>
-            <button class="btn-back" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <button class="btn-back" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+                <button id="theme-toggle" class="btn-theme">
+                    <i class="fa-regular fa-moon"></i> Modo Escuro
+                </button>
+            </div>
         </div>
     </header>
 
@@ -43,9 +48,8 @@
                 </div>
 
                 <div class="borders-section">
-                    <h3>Países Fronteiros:</h3>
-                    <div id="borders" class="borders-list">
-                        </div>
+                    <h3>Países Fronteiriços:</h3>
+                    <div id="borders" class="borders-list"></div>
                 </div>
 
                 <button id="btn-favorite" class="btn-fav">
