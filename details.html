@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do País</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>World Explorer</h1>
+            <button class="btn-back" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i> Voltar</button>
+        </div>
+    </header>
+
+    <main class="container details-page">
+        <div id="loader" class="loader"></div>
+        
+        <div id="details-content" class="details-content hidden">
+            <div class="flag-container">
+                <img id="country-flag" src="" alt="Bandeira">
+            </div>
+            
+            <div class="info-container">
+                <h2 id="country-name">Nome do País</h2>
+                
+                <div class="info-columns">
+                    <div class="col">
+                        <p><strong>Nome Oficial:</strong> <span id="official-name"></span></p>
+                        <p><strong>População:</strong> <span id="population"></span></p>
+                        <p><strong>Região:</strong> <span id="region"></span></p>
+                        <p><strong>Sub-região:</strong> <span id="subregion"></span></p>
+                        <p><strong>Capital:</strong> <span id="capital"></span></p>
+                    </div>
+                    <div class="col">
+                        <p><strong>Domínio Top Level:</strong> <span id="tld"></span></p>
+                        <p><strong>Moedas:</strong> <span id="currencies"></span></p>
+                        <p><strong>Idiomas:</strong> <span id="languages"></span></p>
+                    </div>
+                </div>
+
+                <div class="borders-section">
+                    <h3>Países Fronteiros:</h3>
+                    <div id="borders" class="borders-list">
+                        </div>
+                </div>
+
+                <button id="btn-favorite" class="btn-fav">
+                    <i class="fa-regular fa-heart"></i> Adicionar aos Favoritos
+                </button>
+            </div>
+        </div>
+
+        <div id="map-container" class="map-container hidden">
+            <h3>Localização Geográfica</h3>
+            <div id="map"></div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Desenvolvido por: <strong>Luis Felipe Ferreira Martins</strong> | UESPI - Programação Web</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
