@@ -1,12 +1,42 @@
 import * as api from './api.js';
 
-// Elementos DOM
 const countriesGrid = document.getElementById('countries-grid');
 const searchInput = document.getElementById('search-input');
 const regionFilter = document.getElementById('region-filter');
 const loader = document.getElementById('loader');
 
 const isDetailsPage = window.location.pathname.includes('details.html');
+
+function setupTheme() {
+    const themeBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        updateThemeIcon(true);
+    }
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            updateThemeIcon(isDark);
+        });
+    }
+}
+
+function updateThemeIcon(isDark) {
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+        themeBtn.innerHTML = isDark 
+            ? '<i class="fa-solid fa-sun"></i> Modo Claro' 
+            : '<i class="fa-regular fa-moon"></i> Modo Escuro';
+    }
+}
+
+setupTheme();
 
 if (!isDetailsPage && countriesGrid) {
     initHomePage();
@@ -23,7 +53,6 @@ async function initHomePage() {
         toggleLoader(false);
     }
 
-    // Event Listeners
     searchInput.addEventListener('input', (e) => {
         const term = e.target.value.toLowerCase();
         const cards = document.querySelectorAll('.card');
@@ -49,7 +78,6 @@ async function initHomePage() {
 
 function renderCountries(countries) {
     countriesGrid.innerHTML = '';
-    // Ordena alfabeticamente para melhor UX
     countries.sort((a, b) => a.name.common.localeCompare(b.name.common));
     
     countries.forEach(country => {
@@ -65,7 +93,6 @@ function renderCountries(countries) {
                 <p><strong>Capital:</strong> ${country.capital ? country.capital[0] : 'N/A'}</p>
             </div>
         `;
-        // Ao clicar, vai para detalhes
         card.addEventListener('click', () => {
             window.location.href = `details.html?name=${country.name.common}`;
         });
@@ -73,7 +100,6 @@ function renderCountries(countries) {
     });
 }
 
-// --- Lógica da Página de Detalhes ---
 if (isDetailsPage) {
     initDetailsPage();
 }
@@ -113,14 +139,12 @@ function renderDetails(country) {
     document.getElementById('capital').textContent = country.capital ? country.capital[0] : 'N/A';
     document.getElementById('tld').textContent = country.tld ? country.tld.join(', ') : 'N/A';
 
-    // Idiomas e Moedas
     const currencies = country.currencies ? Object.values(country.currencies).map(c => c.name).join(', ') : 'N/A';
     document.getElementById('currencies').textContent = currencies;
     
     const languages = country.languages ? Object.values(country.languages).join(', ') : 'N/A';
     document.getElementById('languages').textContent = languages;
 
-    // Fronteiras
     const bordersContainer = document.getElementById('borders');
     if (country.borders && country.borders.length > 0) {
         country.borders.forEach(async code => {
@@ -162,34 +186,25 @@ function setupFavorites(country) {
 function updateFavBtn(btn, isFav) {
     if (isFav) {
         btn.classList.add('active');
-        btn.innerHTML = '<i class="fa-solid fa-heart"></i> Remover dos Favoritos';
+        btn.innerHTML = '<i class="fa-solid fa-heart"></i> Remover Favorito';
     } else {
         btn.classList.remove('active');
-        btn.innerHTML = '<i class="fa-regular fa-heart"></i> Adicionar aos Favoritos';
+        btn.innerHTML = '<i class="fa-regular fa-heart"></i> Adicionar Favorito';
     }
 }
 
 function setupMap(country) {
-    // Latitude e Longitude da API
     const [lat, lng] = country.latlng;
-    
-    // Inicializa o mapa usando Leaflet
     const map = L.map('map').setView([lat, lng], 5);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
-
-    L.marker([lat, lng]).addTo(map)
-        .bindPopup(country.name.common)
-        .openPopup();
+    L.marker([lat, lng]).addTo(map).bindPopup(country.name.common).openPopup();
 }
 
-// Utilitários
 function toggleLoader(show) {
     if (loader) loader.classList.toggle('hidden', !show);
 }
-
 function showError(msg) {
     const errorDiv = document.getElementById('error-msg');
     if (errorDiv) {
