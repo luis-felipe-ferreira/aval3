@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorador de Países - UESPI</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><i class="fa-solid fa-earth-americas"></i> World Explorer</h1>
+            <nav>
+                <a href="index.html" class="active">Início</a>
+                <a href="about.html">Sobre</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="controls">
+            <div class="search-box">
+                <i class="fa-solid fa-search"></i>
+                <input type="text" id="search-input" placeholder="Buscar país por nome...">
+            </div>
+            
+            <div class="filter-box">
+                <select id="region-filter">
+                    <option value="all">Filtrar por Continente</option>
+                    <option value="Africa">África</option>
+                    <option value="Americas">Américas</option>
+                    <option value="Asia">Ásia</option>
+                    <option value="Europe">Europa</option>
+                    <option value="Oceania">Oceania</option>
+                </select>
+            </div>
+        </section>
+
+        <div id="loader" class="loader hidden"></div>
+
+        <section id="countries-grid" class="grid-container">
+            </section>
+        
+        <div id="error-msg" class="error-msg hidden"></div>
+    </main>
+
+    <footer>
+        <p>Desenvolvido por: <strong>Luis Felipe Ferreira Martins</strong> | UESPI - Programação Web</p>
+    </footer>
+
+    <script type="module" src="assets/js/app.js"></script>
+</body>
+</html>
